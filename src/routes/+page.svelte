@@ -4,6 +4,7 @@
 	let finished = ["not real", "not fake"]
 	let temp = ""
 	let yaytemp= ""
+	let ichangedsomething = ""
 	
 
 	function handleclick(){
