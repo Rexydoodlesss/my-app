@@ -3,12 +3,12 @@
 <script lang="ts">
 	let tasks = ["This is a sample task!"]
 	let finished:string[] = []
-	
+	let today = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2)
 	let temp = ""
 	let yaytemp= ""
 	let randomized:string[] = []
-	let dates:["1111-11-11"]
-	let parrots = ["bobrossparrot.gif",
+	let dates=["2023-10-3"]
+	let parrots: string[] = ["bobrossparrot.gif",
 "portalparrot.gif",
 "pythonparrot.gif",
 "revertitparrot.gif",
@@ -79,6 +79,7 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	function handleclick(){
 		if (temp !== ""){
 			tasks.push(temp)
+			dates.push(new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2))
 		}
 		if (yaytemp !== ""){
 			finished.push(yaytemp)
@@ -90,11 +91,13 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 
 		tasks = tasks
 		finished = finished
+		dates = dates
 		temp=""
 		yaytemp= ""
 	}
 </script>
 <div class = "site" >
+{dates.toString()}
 	<h1>Rex's Scuffed To Do List:</h1><br>
 	<p>Input New Tasks One At A Time:</p>
 	<input type="text-box" style="width: 300px font-size:500px" bind:value={temp}><br>
@@ -117,7 +120,8 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	{#if finished.length !=0}
 	{#each finished as finish,i}
 	
-	<h4 style="font-size: 50px;">{finish}! <img src={randomized[i]} alt = "partyparrot"/></h4>
+	<h4 style="font-size: 50px;">{finish} is done! <img src={randomized[i]} alt = "partyparrot"/></h4>
+	<p> Started on {dates[i]}</p>
 	
 	{/each}
 	{:else}
