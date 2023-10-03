@@ -1,21 +1,91 @@
 <title>Unimportant Title Lmao</title>
-<script>
-	let tasks = ["real", "fake"]
-	let finished = ["not real", "not fake"]
+
+<script lang="ts">
+	let tasks = ["This is a sample task!"]
+	let finished:string[] = []
+	
 	let temp = ""
 	let yaytemp= ""
-	let ichangedsomething = ""
-	
+	let randomized:string[] = []
+	let dates:["1111-11-11"]
+	let parrots = ["bobrossparrot.gif",
+"portalparrot.gif",
+"pythonparrot.gif",
+"revertitparrot.gif",
+"rotatingparrot.gif",
+"ryangoslingparrot.gif",
+"schnitzelparrot.gif",
+"shipitparrot.gif",
+"shufflefurtherparrot.gif",
+"shufflepartyparrot.gif",
+"skiparrot.gif",
+"slomoparrot.gif",
+"sovjetparrot.gif",
+"stalkerparrot.gif",
+"standupparrot.gif",
+"tacoparrot.gif",
+"tripletsparrot.gif",
+"uparrowparrot.gif",
+"upvoteparrot.gif",
+"wave1parrot.gif",
+"wave2parrot.gif",
+"wave3parrot.gif",
+"wave4parrot.gif",
+"wave5parrot.gif",
+"wave6parrot.gif",
+"wave7parrot.gif",
+"wave8parrot.gif",
+"wave9parrot.gif",
+"chillparrot.gif",
+"coffeeparrot.gif",
+"cryptoparrot.gif",
+"dabparrot.gif",
+"darkbeerparrot.gif",
+"databaseparrot.gif",
+"deployparrot.gif",
+"dizzyparrot.gif",
+"docparrot.gif",
+"dreidelparrot.gif",
+"drupal_parrot.gif",
+"ethparrot.gif",
+"explodyparrot.gif",
+"fadingparrot.gif",
+"fidgetparrot.gif",
+"fiestaparrot.gif",
+"fixparrot.gif",
+"halalparrot.gif",
+"hamburgerparrot.gif",
+"harrypotterparrot.gif",
+"icecreamparrot.gif",
+"krakenparrot.gif",
+"loveparrot.gif",
+"luckyparrot.gif",
+"margaritaparrot.gif",
+"matrixparrot.gif",
+"mergedparrot.gif",
+"metalparrot.gif",
+"mongodbparrot.gif",
+"oldtimeyparrot.gif",
+"papalparrot.gif",
+"parrot.gif",
+"pear-parrots.gif",
+"pizzaparrot.gif",
+"asyncparrot.gif",
+"bananaparrot.gif",
+"blondesassyparrot.gif",
+"bluescluesparrot.gif",]
+let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 
 	function handleclick(){
 		if (temp !== ""){
-		tasks.push(temp)
+			tasks.push(temp)
 		}
 		if (yaytemp !== ""){
-		finished.push(yaytemp)
-		let idx = tasks.indexOf(yaytemp);
-		tasks.splice(idx, 1);
-		
+			finished.push(yaytemp)
+			let idx = tasks.indexOf(yaytemp);
+			tasks.splice(idx, 1);
+			randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
+			randomized.push(randomElement)
 		}
 
 		tasks = tasks
@@ -24,7 +94,7 @@
 		yaytemp= ""
 	}
 </script>
-<div class = "site">
+<div class = "site" >
 	<h1>Rex's Scuffed To Do List:</h1><br>
 	<p>Input New Tasks One At A Time:</p>
 	<input type="text-box" style="width: 300px font-size:500px" bind:value={temp}><br>
@@ -37,9 +107,21 @@
 		bind:group={yaytemp}
 	>{task}<br>
 	{/each}
-	<button on:click ={handleclick}>Click to update! </button><br>
 	{:else}
-	<p>you have no tasks lol which either means your the most productive person in the world, or so lazy as to not even manage your todo list</p>
+	<p><i>you have no tasks lol which either means your the most productive person in the world, or so lazy as to not even manage your todo list</i></p>
+	{/if}
+	<button on:click ={handleclick}>Click to update! </button><br>
+	<br><br><br><br>
+
+	<h1>Completed Tasks!</h1>
+	{#if finished.length !=0}
+	{#each finished as finish,i}
+	
+	<h4 style="font-size: 50px;">{finish}! <img src={randomized[i]} alt = "partyparrot"/></h4>
+	
+	{/each}
+	{:else}
+	<p>get to work idiot</p>
 	{/if}
 </div>
 
@@ -118,5 +200,4 @@
         color: darkmagenta;
         background-color: lightblue;
       }
-	  
 </style>
