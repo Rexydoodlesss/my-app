@@ -1,7 +1,9 @@
+
 <title>Unimportant Title Lmao</title>
 
 <script lang="ts">
-	let tasks = ["This is a sample task!"]
+	import { browser } from '$app/environment';
+	let tasks = ["Sample task"]
 	let finished:string[] = []
 	let today = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2)
 	let temp = ""
@@ -77,17 +79,20 @@
 let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 
 	function handleclick(){
-		if (temp !== ""){
-			tasks.push(temp)
-			dates.push(new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2))
-		}
 		if (yaytemp !== ""){
 			finished.push(yaytemp)
 			let idx = tasks.indexOf(yaytemp);
 			tasks.splice(idx, 1);
 			randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 			randomized.push(randomElement)
+			// finished, randomized tasks
+
 		}
+		if (temp !== ""){
+			tasks.push(temp)
+			dates.push(new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2))
+		}
+		
 
 		tasks = tasks
 		finished = finished
@@ -95,14 +100,19 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 		temp=""
 		yaytemp= ""
 	}
+	function resetclick(){	
+	finished = []
+	randomized = []
+	}
+	
+	
 </script>
 <div class = "site" >
-{dates.toString()}
-	<h1>Rex's Scuffed To Do List:</h1><br>
+	<h1><img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot">Rex's Scuffed To Do List!<img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></h1><br>
 	<p>Input New Tasks One At A Time:</p>
 	<input type="text-box" style="width: 300px font-size:500px" bind:value={temp}><br>
 	<p>Check Off a Completed Task:</p>
-	{#if tasks.length != 0}
+	{#if (tasks.length) != 0}
 	{#each tasks as task}
 		<input 
 		type="checkbox"
@@ -116,8 +126,8 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	<button on:click ={handleclick}>Click to update! </button><br>
 	<br><br><br><br>
 
-	<h1>Completed Tasks!</h1>
-	{#if finished.length !=0}
+	<h1><img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot">Completed Tasks!<img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></h1>
+	{#if (finished.length) !=0}
 	{#each finished as finish,i}
 	
 	<h4 style="font-size: 50px;">{finish} is done! <img src={randomized[i]} alt = "partyparrot"/></h4>
@@ -127,9 +137,8 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	{:else}
 	<p>get to work idiot</p>
 	{/if}
+	<button on:click = {resetclick}>Reset All Tasks <img src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></button>
 </div>
-
-
 
 
 
