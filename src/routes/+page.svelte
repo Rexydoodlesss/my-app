@@ -85,8 +85,6 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 			tasks.splice(idx, 1);
 			randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 			randomized.push(randomElement)
-			// finished, randomized tasks
-
 		}
 		if (temp !== ""){
 			tasks.push(temp)
@@ -104,8 +102,19 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	finished = []
 	randomized = []
 	}
-	
-	
+	$:{
+	if (finished.length = 0){
+		finished = JSON.parse(localStorage.getItem("finished") || "");}
+	if (tasks.length = 0){
+	tasks = JSON.parse(localStorage.getItem("tasks")||"");}
+	 if (finished.length != 0) {
+		localStorage.setItem("finished", JSON.stringify(finished));
+	}
+	 if (tasks.length != 0){
+		localStorage.setItem("tasks", JSON.stringify(tasks));
+	}
+
+	}
 </script>
 <div class = "site" >
 	<h1><img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot">Rex's Scuffed To Do List!<img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></h1><br>
