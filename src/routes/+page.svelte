@@ -78,14 +78,18 @@
 "bluescluesparrot.gif",]
 let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 
-	function handleclick(){
-		if (yaytemp !== ""){
-			finished.push(yaytemp)
-			let idx = tasks.indexOf(yaytemp);
+function handlefinish(task: string) {
+			let idx = tasks.indexOf(task)+1;
+			finished.push(tasks[idx])
 			tasks.splice(idx, 1);
 			randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 			randomized.push(randomElement)
-		}
+			finished = finished
+			tasks = tasks
+			randomized = randomized
+
+	}
+	function handleclick(){
 		if (temp !== ""){
 			tasks.push(temp)
 			dates.push(new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2))
@@ -129,29 +133,26 @@ let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.flo
 	$: if (tasks.length != 1){
 		localStorage.setItem("tasks", JSON.stringify(tasks));
 	}
-
 </script>
-tasks: {tasks} <br>
-randomized: {randomized} <br>
-finished: {finished} <br>
+
+
+
+
 
 <div class = "site" >
 	<h1><img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot">Rex's Scuffed To Do List!<img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></h1><br>
 	<p>Input New Tasks One At A Time:</p>
 	<input type="text-box" style="width: 300px font-size:500px" bind:value={temp}><br>
-	<p>Check Off a Completed Task:</p>
+	<button on:click ={handleclick}>Click to update! </button><br><br><br><br>
+	<p>Cluck Off a Completed Task:</p>
 	{#if (tasks.length) != 0}
 	{#each tasks as task}
-		<input 
-		type="checkbox"
-		value = {task}
-		bind:group={yaytemp}
-	>{task}<br>
+		<button on:click={ () => handlefinish(String("task")) }>{String(task)}</button><br>
 	{/each}
 	{:else}
 	<p><i>you have no tasks lol which either means your the most productive person in the world, or so lazy as to not even manage your todo list</i></p>
 	{/if}
-	<button on:click ={handleclick}>Click to update! </button><br>
+	
 	<br><br><br><br>
 
 	<h1><img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot">Completed Tasks!<img style="height: 40px;" src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></h1>
