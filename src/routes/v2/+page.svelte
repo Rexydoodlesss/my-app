@@ -2,7 +2,10 @@
 <title>Unimportant Title Lmao</title>
 
 <script lang="ts">
-	let tasks:string[] = []
+    import type { Todo } from "$lib/types";
+
+    let tasks: Todo[] = []
+    tasks.push({task: "sample task", done: true, parrotpath: "somehting.gif", date: "string" })
 	let color = "white"
 	let color2 = "black"
 	let colors = ["red", "orange", "yellow", "green", "blue"]
@@ -84,6 +87,9 @@ function funnyfunction(){
 funnyrandom = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
 color = colors[Math.floor(Math.random() * colors.length)];
 color2 = colors[Math.floor(Math.random() * colors.length)];
+randomized.forEach(element => {
+	
+});
 }
 function handlefinish(task: string) {
 			let idx = tasks.indexOf(task);
@@ -128,13 +134,13 @@ function handlefinish(task: string) {
 	if (randomized.length == 0){
 	randomized = JSON.parse(localStorage.getItem("randomized")||"");
 	}
-	$: localStorage.setItem("randomized", JSON.stringify(randomized));
-	
-	$: localStorage.setItem("finished", JSON.stringify(finished));
-	
-	$:localStorage.setItem("tasks", JSON.stringify(tasks));
-	
-	$: localStorage.setItem("dates", JSON.stringify(dates));
+     {
+    localStorage.setItem("randomized", JSON.stringify(randomized));
+	localStorage.setItem("finished", JSON.stringify(finished));
+	localStorage.setItem("tasks", JSON.stringify(tasks));
+	localStorage.setItem("dates", JSON.stringify(dates));
+   
+    }
 	
 </script>
 
