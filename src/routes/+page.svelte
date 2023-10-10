@@ -3,13 +3,14 @@
 
 <script lang="ts">
 	import { browser } from '$app/environment';
-	let tasks = ["Sample task"]
+	let tasks:string[] = []
 	let finished:string[] = []
 	let today = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2)
 	let temp = ""
 	let yaytemp= ""
 	let randomized:string[] = []
-	let dates=["2023-10-3"]
+	let dates:string[]=[]
+	let funnyrandom = "https://cultofthepartyparrot.com/parrots/parrot.gif"
 	let parrots: string[] = ["bobrossparrot.gif",
 "portalparrot.gif",
 "pythonparrot.gif",
@@ -77,7 +78,9 @@
 "blondesassyparrot.gif",
 "bluescluesparrot.gif",]
 let randomElement = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
-
+function funnyfunction(){
+funnyrandom = "https://cultofthepartyparrot.com/parrots/"+parrots[Math.floor(Math.random() * parrots.length)];
+}
 function handlefinish(task: string) {
 			let idx = tasks.indexOf(task)+1;
 			finished.push(tasks[idx])
@@ -113,26 +116,21 @@ function handlefinish(task: string) {
 		finished = JSON.parse(localStorage.getItem("finished") || "");}
 
 	if (dates.length == 0){
-		finished = JSON.parse(localStorage.getItem("dates") || "");}
-
-	$: if (dates.length != 0) {
-		localStorage.setItem("dates", JSON.stringify(randomized));}
-
+		dates = JSON.parse(localStorage.getItem("dates") || "");}
 	if (tasks.length == 1){
 	tasks = JSON.parse(localStorage.getItem("tasks")||"");}
 
 	if (randomized.length == 0){
 	randomized = JSON.parse(localStorage.getItem("randomized")||"");
+	}
+	$: localStorage.setItem("randomized", JSON.stringify(randomized));
 	
-}	$: if (randomized.length != 0) {
-		localStorage.setItem("randomized", JSON.stringify(randomized));}
-
-	$: if (finished.length != 0) {
-		localStorage.setItem("finished", JSON.stringify(finished));
-	}
-	$: if (tasks.length != 1){
-		localStorage.setItem("tasks", JSON.stringify(tasks));
-	}
+	$: localStorage.setItem("finished", JSON.stringify(finished));
+	
+	$:localStorage.setItem("tasks", JSON.stringify(tasks));
+	
+	$: localStorage.setItem("dates", JSON.stringify(dates));
+	
 </script>
 
 
@@ -147,7 +145,7 @@ function handlefinish(task: string) {
 	<p>Cluck Off a Completed Task:</p>
 	{#if (tasks.length) != 0}
 	{#each tasks as task}
-		<button on:click={ () => handlefinish(String("task")) }>{String(task)}</button><br>
+		<button class="task" on:click={ () => handlefinish(String("task")) }>{String(task)}</button><br>
 	{/each}
 	{:else}
 	<p><i>you have no tasks lol which either means your the most productive person in the world, or so lazy as to not even manage your todo list</i></p>
@@ -159,14 +157,16 @@ function handlefinish(task: string) {
 	{#if (finished.length) !=0}
 	{#each finished as finish,i}
 	
-	<h4 style="font-size: 50px;">{finish} is done! <img src={randomized[i]} alt = "partyparrot"/></h4>
+	<h4 style="font-size: 50px;">"{finish}" is done! <img src={randomized[i]} alt = "partyparrot"/></h4>
 	<p> Started on {dates[i]}</p>
 	
 	{/each}
 	{:else}
 	<p>get to work idiot</p>
 	{/if}
-	<button on:click = {resetclick}>Reset All Tasks <img src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></button>
+	<button on:click = {resetclick}>Reset All Tasks <img src="https://cultofthepartyparrot.com/parrots/parrot.gif" alt="partyparrot"></button> <br><br><br><br>
+
+	<button on:click = {funnyfunction}>Need to destress? Click here! <img src="{funnyrandom}" alt="woulda been a random partyparrot"></button>
 </div>
 
 
@@ -213,6 +213,17 @@ function handlefinish(task: string) {
        -moz-animation: rainbowanim 10s ease infinite;
             animation: rainbowanim 10s ease infinite;
 }
+.task{
+	background-color: #4CAF50;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
 @-webkit-keyframes rainbowanim {
     0%{background-position:0% 50%}
@@ -237,7 +248,7 @@ function handlefinish(task: string) {
         border-width: 5px;
         border-color: red;
         border-radius: 10px;
-        padding: 50px;
+        padding: 10px;
 
         color: darkmagenta;
         background-color: lightblue;
