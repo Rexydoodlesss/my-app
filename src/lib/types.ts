@@ -1,6 +1,6 @@
 export type Todo = {
     task: string,
     done: boolean,
-    parrotpath: `${string}.gif`,
+    parrotpath: string,
     date: string,
 }
